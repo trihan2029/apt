@@ -1,12 +1,11 @@
 // Configuration
-const totalQuestions = 33;
+const totalQuestions = 120;
 const timePerQuestion = 60; // seconds
 const totalTime = totalQuestions * timePerQuestion;
 
 const questions = Array.from({ length: totalQuestions }, (_, i) => ({
   img: `questions/${i+1}.JPG`,
-  options: ['A', 'B', 'C', 'D','E'],
-  
+  options: [1, 2, 3, 4],
 }));
 
 let correctAnswers = Array(totalQuestions).fill(null); // Loaded later from file
@@ -89,7 +88,6 @@ function selectOption(questionIndex, selectedOption) {
   answers[questionIndex] = selectedOption;
   loadQuestion(questionIndex);
 }
-
 
 // Navigation
 function nextQuestion() {
@@ -176,13 +174,12 @@ function generateReport() {
     const isGuessed = guessed[i];
 
     if (isIncorrect || isGuessed) {
-      report += `Q${i + 1}: ${userAns ?? 'Not Answered'} | ${correctAns} | ${perQuestionTimers[i]} sec | ${isGuessed ? 'Yes' : 'No'}\n`;
+      report += `Q${i+1}: ${userAns ?? 'Not Answered'} | ${correctAns} | ${perQuestionTimers[i]} sec | ${isGuessed ? 'Yes' : 'No'}\n`;
     }
   }
 
   downloadReport(report);
 }
-
 
 // Download Report as text file
 function downloadReport(content) {
@@ -198,11 +195,10 @@ function loadCorrectAnswers(fileUrl) {
   fetch(fileUrl)
     .then(response => response.text())
     .then(text => {
-      correctAnswers = text.trim().split("\n").map(line => line.trim().toUpperCase());
+      correctAnswers = text.trim().split("\n").map(Number);
     })
     .catch(err => console.error("Error loading answers file:", err));
 }
-
 
 // Initialize
 window.onload = () => {
