@@ -4,7 +4,7 @@ const timePerQuestion = 60; // seconds
 const totalTime = totalQuestions * timePerQuestion;
 
 const questions = Array.from({ length: totalQuestions }, (_, i) => ({
-  img: `questions/${i+1}.JPG`,
+  img: `questions/${i+1}.PNG`,
   options: [1, 2, 3, 4],
 }));
 
